@@ -1,17 +1,20 @@
+import Foundation
 import ShellOut
 
-class SymlinkGenTools {
-    private let symlinkFilePath: String
-   
-    init(path: String) {
-	self.symlinkFilePath = path
+public class SymlinkGeneratorCore {
+    public var contents: String?
+    
+    public init() {}
+
+    //TODO: To implement
+    public func readSymlinkFile(at path: String) throws {
+       	contents = try shellOut(to: .readFile(at: "path/path"))
     }
 
-//    do {
-//        //toImplement
-//        try shellOut(to: .readFile(at: symlinkFilePath) 
-//    } catch let error {
-//        print("Error: \(error)")
-//        exit(0)
-//    }
+    public func generateSymlinks(links: [String]) throws { //Make custom struct
+	links.forEach { link in
+	    try shellOut(to: .createSymlink(to: "~/", at: link))
+	}
+    }
 }
+
