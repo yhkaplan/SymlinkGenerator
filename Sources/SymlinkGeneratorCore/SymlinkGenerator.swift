@@ -1,21 +1,38 @@
 import Foundation
 import ShellOut
-import Files
+
+public struct TargetLink {
+    let target: String
+    let link: String
+}
 
 public class SymlinkGeneratorCore {
     public var contents: String?
-    
     public init() {}
-
-    //TODO: To implement change method used to read file
-    public func readSymlinkFile(at path: String) throws {
-       	contents = try shellOut(to: .readFile(at: "path/path"))
+    
+    public func readSymlinkFile(at path: String) throws -> [TargetLink]? {
+        
+        let reader = try String(contentsOfFile: path)
+        
+        let lines = reader.split(separator: "\n")
+        var targetLinks: [TargetLink]?
+        
+        lines.forEach { line in
+            let lineArray: [String] = line.components(separatedBy: ",")
+            
+            if let target = lineArray.first, let link = lineArray.last {
+                let targetLink = TargetLink(target: target, link: link)
+                targetLinks?.append(targetLink)
+            }
+        }
+        
+        return targetLinks
     }
 
-    public func generateSymlinks(links: [String]) throws { //Make custom struct
-	for link in links {
-	    try shellOut(to: .createSymlink(to: "~/", at: link))
-	}
+    public func generateSymlinks(targetLinks: [TargetLink]) throws {
+        for targetLink in targetLinks {
+            try shellOut(to: .createSymlink(to: targetLink.target, at: targetLink.link))
+        }
     }
 }
 

@@ -7,7 +7,6 @@ let package = Package(
     name: "SymlinkGenerator",
     dependencies: [
 		.package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0"), // Shell commands
-	    .package(url: "https://github.com/JohnSundell/Files.git", from: "2.0.1"), // File management
         .package(url: "https://github.com/kylef/Commander.git", from: "0.8.0") // CLI tool
     ],
     targets: [
@@ -17,7 +16,7 @@ let package = Package(
 	    ),
 	    .target(
 	        name: "SymlinkGeneratorCore",
-	        dependencies: ["ShellOut", "Files"]
+	        dependencies: ["ShellOut"]
 	    )
     ]
 )
