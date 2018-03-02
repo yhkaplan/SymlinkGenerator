@@ -1,12 +1,17 @@
 import SymlinkGeneratorCore
 import Commander
 
-print("Starting, please wait")
-
 let symgen = SymlinkGeneratorCore()
 
-if let contents = symgen.contents {
-    print(contents)
-} else {
-    print("No contents")
-}
+print("Starting, please specify path to symlink file")
+
+command (
+    Argument<String>("path", description: "Path to symlink file")
+) { path in
+    do {
+        let targets = try symgen.readSymlinkFile(at: path)
+        targets?.forEach { print("\($0)") }
+    } catch let error {
+        print("Error: \(error)")
+    }
+}.run()

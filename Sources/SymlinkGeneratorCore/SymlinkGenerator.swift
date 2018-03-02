@@ -2,12 +2,11 @@ import Foundation
 import ShellOut
 
 public struct TargetLink {
-    let target: String
-    let link: String
+    public let target: String
+    public let link: String
 }
 
 public class SymlinkGeneratorCore {
-    public var contents: String?
     public init() {}
     
     public func readSymlinkFile(at path: String) throws -> [TargetLink]? {
