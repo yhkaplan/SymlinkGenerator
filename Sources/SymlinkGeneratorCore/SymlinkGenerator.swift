@@ -1,5 +1,6 @@
 import Foundation
 import ShellOut
+import Files
 
 public class SymlinkGeneratorCore {
     public var contents: String?
@@ -12,7 +13,7 @@ public class SymlinkGeneratorCore {
     }
 
     public func generateSymlinks(links: [String]) throws { //Make custom struct
-	links.forEach { link in
+	for link in links {
 	    try shellOut(to: .createSymlink(to: "~/", at: link))
 	}
     }

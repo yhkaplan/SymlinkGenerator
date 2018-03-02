@@ -7,17 +7,17 @@ let package = Package(
     name: "SymlinkGenerator",
     dependencies: [
 		.package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0"), // Shell commands
-	    .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"), // Colored output
+	    .package(url: "https://github.com/JohnSundell/Files.git", from: "2.0.1"), // File management
         .package(url: "https://github.com/kylef/Commander.git", from: "0.8.0") // CLI tool
     ],
     targets: [
         .target(
             name: "SymlinkGenerator",
-            dependencies: ["SymlinkGeneratorCore", "Rainbow", "Commander"]
+            dependencies: ["SymlinkGeneratorCore", "Commander"]
 	    ),
 	    .target(
 	        name: "SymlinkGeneratorCore",
-	        dependencies: ["ShellOut"]
+	        dependencies: ["ShellOut", "Files"]
 	    )
     ]
 )
