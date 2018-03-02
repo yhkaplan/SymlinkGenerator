@@ -7,7 +7,7 @@ public class SymlinkGeneratorCore {
     
     public init() {}
 
-    //TODO: To implement
+    //TODO: To implement change method used to read file
     public func readSymlinkFile(at path: String) throws {
        	contents = try shellOut(to: .readFile(at: "path/path"))
     }

@@ -1,8 +1,7 @@
 import SymlinkGeneratorCore
 import Commander
-import Files
 
-print("Starting, please wait".red)
+print("Starting, please wait")
 
 let symgen = SymlinkGeneratorCore()
 
