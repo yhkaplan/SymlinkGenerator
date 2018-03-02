@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ShellOut",
+        "repositoryURL": "https://github.com/JohnSundell/ShellOut.git",
+        "state": {
+          "branch": null,
+          "revision": "f1c253a34a40df4bfd268b09fdb101b059f6d52d",
+          "version": "2.1.0"
+        }
+      },
+      {
+        "package": "Swiftline",
+        "repositoryURL": "https://github.com/Swiftline/Swiftline.git",
+        "state": {
+          "branch": null,
+          "revision": "4f84dee14e47a69bfbea71a6dbba0ddc9fd9b66b",
+          "version": "0.5.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
