@@ -26,7 +26,7 @@ public class SymlinkGeneratorCore {
             .split(separator: "\n")
             .map { line throws -> TargetLink in
                 
-                let lineArray: [String] = line.components(separatedBy: ",")
+                let lineArray: [String] = line.components(separatedBy: ", ")
                 
                 guard let target = lineArray.first, let link = lineArray.last else {
                     throw SymlinkError.noTargetLinksFound
