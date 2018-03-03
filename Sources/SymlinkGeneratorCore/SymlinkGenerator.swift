@@ -6,32 +6,36 @@ public struct TargetLink {
     public let link: String
 }
 
+public enum SymlinkError: Error {
+    case noTargetLinksFound
+}
+
 public class SymlinkGeneratorCore {
     public init() {}
     
-    public func readSymlinkFile(at path: String) throws -> [TargetLink]? {
+    public func readFile(at path: String, operation: (String) throws -> [TargetLink]) throws -> [TargetLink] {
+        let fileContents = try String(contentsOfFile: path)
+        return try operation(fileContents)
+    }
+    
+    public func extractTargetLinks(with fileContents: String) throws -> [TargetLink] {
         
-        let reader = try String(contentsOfFile: path)
-        
-        let lines = reader.split(separator: "\n")
-        var targetLinks: [TargetLink]?
-        
-        lines.forEach { line in
-            let lineArray: [String] = line.components(separatedBy: ",")
-            
-            if let target = lineArray.first, let link = lineArray.last {
-                let targetLink = TargetLink(target: target, link: link)
-                targetLinks?.append(targetLink)
+        return try fileContents
+            .split(separator: "\n")
+            .map { line throws -> TargetLink in
+                
+                let lineArray: [String] = line.components(separatedBy: ",")
+                
+                guard let target = lineArray.first, let link = lineArray.last else {
+                    throw SymlinkError.noTargetLinksFound
+                }
+                
+                return TargetLink(target: target, link: link)
             }
-        }
-        
-        return targetLinks
     }
 
-    public func generateSymlinks(targetLinks: [TargetLink]) throws {
-        for targetLink in targetLinks {
-            try shellOut(to: .createSymlink(to: targetLink.target, at: targetLink.link))
-        }
+    public func generateSymlinks(targetLink: TargetLink) throws {
+        try shellOut(to: .createSymlink(to: targetLink.target, at: targetLink.link))
     }
 }
 
