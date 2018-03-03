@@ -7,12 +7,14 @@ public struct TargetLink {
 }
 
 public enum SymlinkError: Error {
+    case couldNotReadFile
     case noTargetLinksFound
 }
 
 public class SymlinkGeneratorCore {
     public init() {}
     
+    //TODO: way too much trying and throwing here.
     public func readFile(at path: String, operation: (String) throws -> [TargetLink]) throws -> [TargetLink] {
         let fileContents = try String(contentsOfFile: path)
         return try operation(fileContents)

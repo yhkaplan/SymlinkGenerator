@@ -10,19 +10,37 @@ import XCTest
 
 class SymlinkGeneratorCoreTests: XCTestCase {
     
-    var symlinkGen: SymlinkGeneratorCore!
+    var symgen: SymlinkGeneratorCore!
     
     override func setUp() {
         super.setUp()
-        symlinkGen = SymlinkGeneratorCore()
+        symgen = SymlinkGeneratorCore()
     }
     
     override func tearDown() {
-        symlinkGen = nil
+        symgen = nil
         super.tearDown()
     }
     
-    func test_readSymlinkFile_readsFile() {
+    func test_extractTargetLinks_canParseString() {
+        let tarLink1 = TargetLink(target: "~/target/one/test", "link: /link/to/file_one.file")
         
+        let mockFileContents = """
+        \(tarLink1.target), \(tarLink1.link)
+        ~/target/two/test, /link/to/file_two.file
+        """
+        
+        do {
+            let targetLinks = symgen.extractTargetLinks(with: mockFileContents)
+            guard let testTargetLink = targetLinks.first else {
+                XCTFail("Test failed: Nothing parsed")
+                return
+            }
+            
+            XCTAssertEqual(tarLink1.target, testTargetLink.target)
+            
+        } catch let error {
+            XCTFail("Test failed: \(error.localizedDescription)")
+        }
     }
 }

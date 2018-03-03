@@ -17,6 +17,10 @@ let package = Package(
 	    .target(
 	        name: "SymlinkGeneratorCore",
 	        dependencies: ["ShellOut"]
-	    )
+	    ),
+        .testTarget(
+            name: "SymlinkGeneratorCoreTests",
+            dependencies: ["SymlinkGeneratorCore"]
+        )
     ]
 )
