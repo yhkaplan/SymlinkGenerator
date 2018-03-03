@@ -10,14 +10,12 @@ import XCTest
 
 class SymlinkGeneratorCoreTests: XCTestCase {
     
-    var symgen: SymlinkGeneratorCore!
     var targetLink1: TargetLink!
     var targetLink2: TargetLink!
     var mockFileContents: String!
     
     override func setUp() {
         super.setUp()
-        symgen = SymlinkGeneratorCore()
         
         targetLink1 = TargetLink(target: "~/target/one/test", link: "/link/to/file_one.file")
         targetLink2 = TargetLink(target: "~/target/two/test", link: "/link/to/file_two.file")
@@ -28,13 +26,15 @@ class SymlinkGeneratorCoreTests: XCTestCase {
     }
     
     override func tearDown() {
-        symgen = nil
+        targetLink1 = nil
+        targetLink2 = nil
+        mockFileContents = nil
         super.tearDown()
     }
     
     func test_extractTargetLinks_canParseFirstString() {
         do {
-            let targetLinks = try symgen.extractTargetLinks(with: mockFileContents)
+            let targetLinks = try extractTargetLinks(with: mockFileContents)
             guard let testTargetLink1 = targetLinks.first else {
                 XCTFail("Test failed: Nothing parsed")
                 return
@@ -50,7 +50,7 @@ class SymlinkGeneratorCoreTests: XCTestCase {
     
     func test_extractTargetLinks_canParseSecondString() {
         do {
-            let targetLinks = try symgen.extractTargetLinks(with: mockFileContents)
+            let targetLinks = try extractTargetLinks(with: mockFileContents)
             
             guard let testTargetLink2 = targetLinks.last else {
                 XCTFail("Test failed: Nothing parsed")
