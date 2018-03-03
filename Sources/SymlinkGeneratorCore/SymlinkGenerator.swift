@@ -36,8 +36,8 @@ public class SymlinkGeneratorCore {
             }
     }
 
-    public func generateSymlinks(targetLink: TargetLink) throws {
-        try shellOut(to: .createSymlink(to: targetLink.target, at: targetLink.link))
+    public func generateSymlink(for targetLink: TargetLink) throws {
+        try shellOut(to: "ln -sv \(targetLink.target) \(targetLink.link)", at: "~/")
     }
 }
 
