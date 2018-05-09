@@ -2,8 +2,8 @@ import Foundation
 import ShellOut
 
 public struct TargetLink {
-    public let target: String
-    public let link: String
+    let target: String
+    let link: String
 }
 
 public enum SymlinkError: Error {
