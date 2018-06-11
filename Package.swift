@@ -3,24 +3,28 @@
 
 import PackageDescription
 
+let SymlinkGenerator = "SymlinkGenerator"
+let symGenCore = "SymlinkGeneratorCore"
+let symGenCoreTests = "SymlinkGeneratorCoreTests"
+
 let package = Package(
-    name: "SymlinkGenerator",
+    name: SymlinkGenerator,
     dependencies: [
 		.package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0"), // Shell commands
         .package(url: "https://github.com/kylef/Commander.git", from: "0.8.0") // CLI tool
     ],
     targets: [
         .target(
-            name: "SymlinkGenerator",
-            dependencies: ["SymlinkGeneratorCore", "Commander"]
+            name: SymlinkGenerator,
+            dependencies: [symGenCore, "Commander"]
 	    ),
 	    .target(
-	        name: "SymlinkGeneratorCore",
+	        name: symGenCore,
 	        dependencies: ["ShellOut"]
 	    ),
         .testTarget(
-            name: "SymlinkGeneratorCoreTests",
-            dependencies: ["SymlinkGeneratorCore"]
+            name: symGenCoreTests,
+            dependencies: [symGenCore]
         )
     ]
 )
